@@ -13,44 +13,50 @@
 
 var billTypeText = document.querySelector(".billTypeText");
 var addToBillBtn = document.querySelector(".addToBillBtn");
-var callsTotalElem = document.querySelector(".callTotalOne");
-var smsTotalElem = document.querySelector(".smsTotalOne");
-var totalCostElem = document.querySelector(".totalOne");
-var callsTotal = 0;
-var smsTotal = 0;
+var callsTextTotalElem = document.querySelector(".callTotalOne");
+var smsTextTotalElem = document.querySelector(".smsTotalOne");
+var totalTextCostElem = document.querySelector(".totalOne");
+var callsTextTotal = 0;
+var smsTextTotal = 0;
+
+
 
 function textBillTotal() {
-    var billTextEntered = billTypeText.value.trim();
-
+     var billTextEntered = billTypeText.value.trim()
+    
     switch (billTextEntered) {
         case "call":
-            callsTotal += 2.75;
+            callsTextTotal += 2.75;
             break;
         case "sms":
-            smsTotal += 0.75;
+            smsTextTotal += 0.75;
             break;
         case "clear":
-            callsTotal = 0;
-            smsTotal = 0;
-            totalCostElem.classList.remove("danger");
-            totalCostElem.classList.remove("warning");
+            callsTextTotal = 0;
+            smsTextTotal = 0;
+            totalTextCostElem.classList.remove("danger");
+            totalTextCostElem.classList.remove("warning")
             break;
         default:
             billTypeText.value = "Try again!"
             break;
     }
 
-    callsTotalElem.innerHTML = callsTotal.toFixed(2);
-    smsTotalElem.innerHTML = smsTotal.toFixed(2);
-    var totalCost = callsTotal + smsTotal;
-    totalCostElem.innerHTML = totalCost.toFixed(2);
+    callsTextTotalElem.innerHTML = callsTextTotal.toFixed(2);
+    smsTextTotalElem.innerHTML = smsTextTotal.toFixed(2);
+    var totalTextCost = callsTextTotal + smsTextTotal;
+    totalTextCostElem.innerHTML = totalTextCost.toFixed(2);
 
-    if (totalCost > 50) {
-        totalCostElem.classList.add("danger");
+    if (totalTextCost > 50) {
+        totalTextCostElem.classList.add("danger");
     }
-    else if (totalCost > 30){
-        totalCostElem.classList.add("warning");
+    else if (totalTextCost > 30){
+        totalTextCostElem.classList.add("warning");
     }
 };
 
 addToBillBtn.addEventListener("click", textBillTotal);
+
+/*addToBillBtn.addEventListener('click', function() {
+    alert();
+}); */
