@@ -24,7 +24,7 @@ var totalPhoneBill = function(strPhoneBill) {
            totalCost += 2.75;
            break;
         case 'sms':
-          totalCost += 0.65;
+          totalCost += 0.75;
           break;
         default:
           break;
