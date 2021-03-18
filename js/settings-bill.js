@@ -31,6 +31,8 @@ var totalSettingsElem = document.querySelector(".totalSettings");
 
 var callCost = 0;
 var smsCost = 0;
+var callCountFour = 0;
+var smsCountFour = 0;
 var totalCostSettings = 0;
 var warningLevelSet = 0;
 var criticalLevelSet = 0;
@@ -46,6 +48,9 @@ var warningLevelInput = document.querySelector(".warningLevelSetting");
 var criticalLevelInput = document.querySelector(".criticalLevelSetting");
 
 function updateSettings() {
+
+    let oldCallCost = callCost;
+    let oldSmsCost = smsCost;
 
     if (callCostInput.value !== "") {
         callCost = parseFloat(callCostInput.value);
@@ -71,6 +76,17 @@ function updateSettings() {
         criticalLevelInput.value = "";
         }
 
+        if ((callCost != oldCallCost || smsCost != oldSmsCost) && totalCostSettings !== 0) {
+            let updateCost = confirm("Click 'OK' to update the totals based on the new cost.\nAll new items will be based on the new cost regardless.");
+            if (updateCost == true) {
+                callsTotalSettingsBill = callCost * callCountFour;
+                smsTotalSettingsBill = smsCost * smsCountFour;
+                callTotalSettingsElem.innerHTML = callsTotalSettingsBill.toFixed(2);
+                smsTotalSettingsElem.innerHTML = smsTotalSettingsBill.toFixed(2);
+                totalCostSettings = callsTotalSettingsBill + smsTotalSettingsBill;
+                totalSettingsElem.innerHTML = totalCostSettings.toFixed(2);  
+            }
+        }
         if (totalCostSettings < warningLevelSet) {
             totalSettingsElem.classList.remove("warning");
         }
@@ -78,6 +94,8 @@ function updateSettings() {
         if (totalCostSettings < criticalLevelSet) {
             totalSettingsElem.classList.remove("danger");
         }
+
+
 };
 
 function settingsBillTotal() {
@@ -90,6 +108,7 @@ function settingsBillTotal() {
             
         } else {
         callsTotalSettingsBill += callCost;
+        callCountFour ++;
         }
     } else if (billItemSettings == "sms") {
         if(totalCostSettings + smsCost > criticalLevelSet) {
@@ -97,6 +116,7 @@ function settingsBillTotal() {
             settingsBillTotal.stop(); 
         }   else {
                 smsTotalSettingsBill += smsCost;
+                smsCountFour ++;
         }
     }
 
@@ -106,8 +126,9 @@ function settingsBillTotal() {
 
     callTotalSettingsElem.innerHTML = callsTotalSettingsBill.toFixed(2);
     smsTotalSettingsElem.innerHTML = smsTotalSettingsBill.toFixed(2);
-    
-    totalSettingsElem.innerHTML = totalCostSettings.toFixed(2);  
+    totalSettingsElem.innerHTML = totalCostSettings.toFixed(2); 
+    document.querySelector(".callCountFour").innerHTML = callCountFour;
+    document.querySelector(".smsCountFour").innerHTML = smsCountFour; 
 };
 
 function levelSet() {
@@ -126,14 +147,14 @@ updateSettingsBtn.addEventListener("click", updateSettings);
 
 settingsBillAddBtn.addEventListener("click", settingsBillTotal);
 settingsBillAddBtn.addEventListener("click", levelSet);
-//settingsBillAddBtn.addEventListener("click", function() {
-  //  alert(totalCostSettings);
-  //  });
+
 
 settingsBillResetBtn.addEventListener("click", function() {
  
     callsTotalSettingsBill = 0;
     smsTotalSettingsBill = 0;
+    callCountFour = 0;
+    smsCountFour = 0;
     totalSettingsElem.classList.remove("danger");
     totalSettingsElem.classList.remove("warning");
     
@@ -142,5 +163,7 @@ settingsBillResetBtn.addEventListener("click", function() {
     smsTotalSettingsElem.innerHTML = smsTotalSettingsBill.toFixed(2);
     totalCostSettings = callsTotalSettingsBill + smsTotalSettingsBill;
     totalSettingsElem.innerHTML = totalCostSettings.toFixed(2);
+    document.querySelector(".callCountFour").innerHTML = callCountFour;
+    document.querySelector(".smsCountFour").innerHTML = smsCountFour; 
     
 });

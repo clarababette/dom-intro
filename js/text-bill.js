@@ -18,6 +18,8 @@ var smsTextTotalElem = document.querySelector(".smsTotalOne");
 var totalTextCostElem = document.querySelector(".totalOne");
 var callsTextTotal = 0;
 var smsTextTotal = 0;
+var callCountTwo = 0;
+var smsCountTwo = 0;
 
 
 
@@ -27,15 +29,20 @@ function textBillTotal() {
     switch (billTextEntered) {
         case "call":
             callsTextTotal += 2.75;
+            callCountTwo ++;
             break;
         case "sms":
             smsTextTotal += 0.75;
+            smsCountTwo ++;
             break;
         case "clear":
             callsTextTotal = 0;
             smsTextTotal = 0;
+            callCountTwo = 0;
+            smsCountTwo = 0;
             totalTextCostElem.classList.remove("danger");
-            totalTextCostElem.classList.remove("warning")
+            totalTextCostElem.classList.remove("warning");
+            
             break;
         default:
             billTypeText.value = "Try again!"
@@ -46,6 +53,8 @@ function textBillTotal() {
     smsTextTotalElem.innerHTML = smsTextTotal.toFixed(2);
     var totalTextCost = callsTextTotal + smsTextTotal;
     totalTextCostElem.innerHTML = totalTextCost.toFixed(2);
+    document.querySelector(".callCountTwo").innerHTML = callCountTwo;
+    document.querySelector(".smsCountTwo").innerHTML = smsCountTwo;
 
     if (totalTextCost > 50) {
         totalTextCostElem.classList.add("danger");

@@ -16,7 +16,8 @@ var callsTotalElem = document.querySelector(".callTotalTwo");
 var smsTotalElem = document.querySelector(".smsTotalTwo");
 var totalCostElem = document.querySelector(".totalTwo");
 var radioBillResetBtn = document.querySelector(".radioBillResetBtn");
-
+var callCountThree = 0;
+var smsCountThree = 0;
 
 var callsTotal = 0;
 var smsTotal = 0;
@@ -26,14 +27,18 @@ function radioBillTotal() {
     
     if (billItem == "call") {
         callsTotal += 2.75;
+        callCountThree ++;
     } else if (billItem == "sms") {
         smsTotal += 0.75;
+        smsCountThree ++;
     }
 
     callsTotalElem.innerHTML = callsTotal.toFixed(2);
     smsTotalElem.innerHTML = smsTotal.toFixed(2);
     var totalCost = callsTotal + smsTotal;
     totalCostElem.innerHTML = totalCost.toFixed(2);
+    document.querySelector(".callCountThree").innerHTML = callCountThree;
+    document.querySelector(".smsCountThree").innerHTML = smsCountThree;
 
     if (totalCost > 50) {
         totalCostElem.classList.add("danger");
@@ -49,6 +54,8 @@ radioBillResetBtn.addEventListener("click", function(){
     
     callsTotal = 0;
     smsTotal = 0;
+    callCountThree = 0;
+    smsCountThree = 0;
     totalCostElem.classList.remove("danger");
     totalCostElem.classList.remove("warning");
 
@@ -56,5 +63,7 @@ radioBillResetBtn.addEventListener("click", function(){
     smsTotalElem.innerHTML = smsTotal.toFixed(2);
     var totalCost = callsTotal + smsTotal;
     totalCostElem.innerHTML = totalCost.toFixed(2);
+    document.querySelector(".callCountThree").innerHTML = callCountThree;
+    document.querySelector(".smsCountThree").innerHTML = smsCountThree;
         
 });

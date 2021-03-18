@@ -12,6 +12,8 @@ var billString = document.querySelector(".billString");
 //  * once done looping over all the entries - display the total onto the screen in the billTotal element
 
 var totalCost = 0;
+var callCountOne = 0;
+var smsCountOne = 0;
 
 var totalPhoneBill = function(strPhoneBill) {
     var arrPhoneBill = strPhoneBill.split(',');
@@ -22,9 +24,11 @@ var totalPhoneBill = function(strPhoneBill) {
       switch (use) {
         case 'call':
            totalCost += 2.75;
+           callCountOne ++;
            break;
         case 'sms':
           totalCost += 0.75;
+          smsCountOne ++;
           break;
         default:
           break;
@@ -38,6 +42,9 @@ var totalPhoneBill = function(strPhoneBill) {
 
 calculateBtn.addEventListener('click', function(){
     totalCost = 0;
+    callCountOne = 0;
+    smsCountOne = 0;
+
     document.querySelector(".total").classList.remove("warning");
     document.querySelector(".total").classList.remove("danger");
 
@@ -47,7 +54,10 @@ calculateBtn.addEventListener('click', function(){
     document.querySelector(".total").classList.add("danger");
     } else if (totalCost > 20) {
         document.querySelector(".total").classList.add("warning");
-    }    
+    } 
+  
+    document.querySelector(".callCountOne").innerHTML = callCountOne;
+    document.querySelector(".smsCountOne").innerHTML = smsCountOne;
 });
 
 
