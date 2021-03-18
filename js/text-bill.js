@@ -57,6 +57,3 @@ function textBillTotal() {
 
 addToBillBtn.addEventListener("click", textBillTotal);
 
-/*addToBillBtn.addEventListener('click', function() {
-    alert();
-}); */
