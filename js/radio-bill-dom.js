@@ -16,54 +16,28 @@ var callsTotalElem = document.querySelector(".callTotalTwo");
 var smsTotalElem = document.querySelector(".smsTotalTwo");
 var totalCostElem = document.querySelector(".totalTwo");
 var radioBillResetBtn = document.querySelector(".radioBillResetBtn");
-var callCountThree = 0;
-var smsCountThree = 0;
 
-var callsTotal = 0;
-var smsTotal = 0;
 
-function radioBillTotal() {
+var theRadioBill = billTextRadio();
+
+function displayRadioValues() {
+    callsTotalElem.innerHTML = theRadioBill.getCallTotal();
+    smsTotalElem.innerHTML = theRadioBill.getSMSTotal();
+    totalCostElem.innerHTML = theRadioBill.getTotalCost();
+    document.querySelector(".callCountThree").innerHTML = theRadioBill.getCallCount();
+    document.querySelector(".smsCountThree").innerHTML = theRadioBill.getSMSCount();
+}
+
+radioBillAddBtn.addEventListener("click", function() {
     var billItem = document.querySelector(".billItemTypeRadio:checked").value;
-    
-    if (billItem == "call") {
-        callsTotal += 2.75;
-        callCountThree ++;
-    } else if (billItem == "sms") {
-        smsTotal += 0.75;
-        smsCountThree ++;
-    }
+    theRadioBill.addItem(billItem);
+    displayRadioValues();
+    totalCostElem.classList.add(theRadioBill.getClass());
+});
 
-    callsTotalElem.innerHTML = callsTotal.toFixed(2);
-    smsTotalElem.innerHTML = smsTotal.toFixed(2);
-    var totalCost = callsTotal + smsTotal;
-    totalCostElem.innerHTML = totalCost.toFixed(2);
-    document.querySelector(".callCountThree").innerHTML = callCountThree;
-    document.querySelector(".smsCountThree").innerHTML = smsCountThree;
-
-    if (totalCost > 50) {
-        totalCostElem.classList.add("danger");
-    }
-    else if (totalCost > 30){
-        totalCostElem.classList.add("warning");
-    }
-    
-};
-
-radioBillAddBtn.addEventListener("click", radioBillTotal);
-radioBillResetBtn.addEventListener("click", function(){
-    
-    callsTotal = 0;
-    smsTotal = 0;
-    callCountThree = 0;
-    smsCountThree = 0;
+radioBillResetBtn.addEventListener("click", function() {
+    theRadioBill = billTextRadio();
     totalCostElem.classList.remove("danger");
     totalCostElem.classList.remove("warning");
-
-    callsTotalElem.innerHTML = callsTotal.toFixed(2);
-    smsTotalElem.innerHTML = smsTotal.toFixed(2);
-    var totalCost = callsTotal + smsTotal;
-    totalCostElem.innerHTML = totalCost.toFixed(2);
-    document.querySelector(".callCountThree").innerHTML = callCountThree;
-    document.querySelector(".smsCountThree").innerHTML = smsCountThree;
-        
-});
+    displayRadioValues();
+})

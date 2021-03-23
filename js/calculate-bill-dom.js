@@ -7,7 +7,7 @@ calculateBtn.addEventListener('click', function(){
   document.querySelector(".total").classList.remove("warning");
   document.querySelector(".total").classList.remove("danger");  
   
-  var phoneBill = calculateBill(billString.value)
+  var phoneBill = calculateBill(billString.value);
 
    billTotal.innerHTML = phoneBill.getTotalCost();
    document.querySelector(".total").classList.add(phoneBill.getClass());
