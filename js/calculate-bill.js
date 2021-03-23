@@ -1,64 +1,52 @@
-//get a reference to the calculate button
-var calculateBtn = document.querySelector(".calculateBtn");
-//get a reference to the billTotal element
-var billTotal = document.querySelector(".billTotal");
-//get a reference to the billString
-var billString = document.querySelector(".billString");
+function calculateBill(strPhoneBill) {
+   var arrPhoneBill = strPhoneBill.split(',');
 
-//create the function that will be called when the calculate button is pressed
-//  * this function should read the string value entered - split it on a comma.
-//  * loop over all the entries in the the resulting list
-//  * check if it is a call or an sms and add the right amount to the overall total
-//  * once done looping over all the entries - display the total onto the screen in the billTotal element
+    var totalCost = 0;
+    var callCount = 0;
+    var smsCount = 0;
 
-var totalCost = 0;
-var callCountOne = 0;
-var smsCountOne = 0;
+    function getTotalCost() {
+        arrPhoneBill.forEach(function(use) {
+            use = use.trim();
+          switch (use) {
+            case 'call':
+               totalCost += 2.75;
+               callCount ++;
+               break;
+            case 'sms':
+              totalCost += 0.75;
+              smsCount ++;
+              break;
+            default:
+              break;
+          }
+        });
+        
+        return totalCost.toFixed(2);
+    }
 
-var totalPhoneBill = function(strPhoneBill) {
-    var arrPhoneBill = strPhoneBill.split(',');
-    
-    
-    arrPhoneBill.forEach(function(use) {
-        use = use.trim();
-      switch (use) {
-        case 'call':
-           totalCost += 2.75;
-           callCountOne ++;
-           break;
-        case 'sms':
-          totalCost += 0.75;
-          smsCountOne ++;
-          break;
-        default:
-          break;
-      }
-    });
-    
-    return totalCost.toFixed(2);
-  };
+    function getClass() {
+        if (totalCost > 30) {
+            return "danger";
+        } else if (totalCost > 20) {
+            return "warning";
+        }
+    }
 
-//link the function to a click event on the calculate button
+    function getCallCount() {
+        return callCount;
+    }
 
-calculateBtn.addEventListener('click', function(){
-    totalCost = 0;
-    callCountOne = 0;
-    smsCountOne = 0;
+    function getSMSCount() {
+        return smsCount;
+    }
 
-    document.querySelector(".total").classList.remove("warning");
-    document.querySelector(".total").classList.remove("danger");
-
-   billTotal.innerHTML = totalPhoneBill(billString.value);
-
-   if (totalCost > 30) {
-    document.querySelector(".total").classList.add("danger");
-    } else if (totalCost > 20) {
-        document.querySelector(".total").classList.add("warning");
-    } 
-  
-    document.querySelector(".callCountOne").innerHTML = callCountOne;
-    document.querySelector(".smsCountOne").innerHTML = smsCountOne;
-});
+    return {
+        getTotalCost,
+        getClass,
+        getCallCount,
+        getSMSCount
+    }
 
 
-
+}
