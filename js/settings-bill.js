@@ -94,6 +94,12 @@ function billWithSettings() {
         return smsCount;
     }
 
+    function reCalculateTotal(requestResponse) {
+        if(requestResponse) {
+            callCostTotal = callCost * callCount;
+            smsCostTotal = smsCost * smsCount;
+        }
+    }
 
 
     return {
@@ -113,6 +119,7 @@ function billWithSettings() {
         getSMSCostTotal,
         getTotalCost,
         getCallCount,
-        getSMSCount
+        getSMSCount,
+        reCalculateTotal
     }
 }
