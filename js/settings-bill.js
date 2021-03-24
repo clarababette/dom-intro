@@ -13,14 +13,18 @@ function billWithSettings() {
         if ((callCostTotal + smsCostTotal + callCost) <= criticalLevel) {
             callCostTotal += callCost;
             callCount ++;
-        };
+        } else {
+            //alert("Cannot add. Critical level reached.");
+        }
     }
 
     function sendSMS() {
         if ((callCostTotal + smsCostTotal + smsCost) <= criticalLevel) {
             smsCostTotal += smsCost;
             smsCount ++;
-        };
+        } else {
+            //alert("Cannot add. Critical level reached.");
+        }
     }
 
     function addItem(item) {
@@ -36,29 +40,50 @@ function billWithSettings() {
     function getClass() {
         if ((callCostTotal + smsCostTotal) >= criticalLevel) {
             return "danger";
-        } else if ((callCostTotal + smsCostTotal) > warningLevel) {
+        } else if ((callCostTotal + smsCostTotal) >= warningLevel) {
             return "warning";
         }
     }
 
+    function changeCheck(oldCost, newCost) {
+        if(oldCost != newCost && (callCostTotal + smsCostTotal) != 0) {
+            let updateCost = confirm("Click 'OK' to update the totals based on the new cost.\nAll new items will be based on the new cost regardless.");
+            reCalculateTotal(updateCost);
+        }
+    }
+
     function setCallCost(cost) {
-        callCost = parseFloat(cost);
+        let oldCost = callCost;
+        let newCost = cost;
+        if(cost !== "") {
+            callCost = parseFloat(cost);
+            //changeCheck(oldCost,newCost);
+        }
+        
     }
 
     function getCallCost() {
-        return callCost;
+        return callCost.toFixed(2);
     }
 
     function setSMSCost(cost) {
-        smsCost = parseFloat(cost);
+        let oldCost = smsCost;
+        let newCost = cost;
+        if(cost !== "") {
+            smsCost = parseFloat(cost);
+            //changeCheck(oldCost,newCost);
+
+        }
     }
 
     function getSMSCost() {
-        return smsCost;
+        return smsCost.toFixed(2);
     }
 
     function setWarningLevel(level) {
-        warningLevel = parseFloat(level);
+        if(level !== "") {
+            warningLevel = parseFloat(level);
+        }
     }
 
     function getWarningLevel() {
@@ -66,7 +91,9 @@ function billWithSettings() {
     }
 
     function setCriticalLevel(level) {
-        criticalLevel = parseFloat(level);
+        if(level !== "") {
+            criticalLevel = parseFloat(level);
+        }
     }
 
     function getCriticalLevel() {
@@ -101,6 +128,13 @@ function billWithSettings() {
         }
     }
 
+    function resetTotals() {
+        callCostTotal = 0;
+        smsCostTotal = 0;
+        callCount = 0;
+        smsCount = 0;
+    }
+
 
     return {
         makeCall,
@@ -120,6 +154,8 @@ function billWithSettings() {
         getTotalCost,
         getCallCount,
         getSMSCount,
-        reCalculateTotal
+        reCalculateTotal,
+        changeCheck,
+        resetTotals
     }
 }
