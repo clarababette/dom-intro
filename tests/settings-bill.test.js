@@ -147,13 +147,10 @@ describe("The factory function for both the bill with settings", function(){
         phoneBill.setSMSCost(0.35);
         phoneBill.setWarningLevel(12.45);
         phoneBill.setCriticalLevel(15.00);
-        phoneBill.addItem("sms");
-        phoneBill.addItem("call");
-        phoneBill.addItem("sms");
-        phoneBill.addItem("sms");
         phoneBill.addItem("call");
         phoneBill.addItem("call");
-        phoneBill.addItem("sms");
+        phoneBill.addItem("call");
+        phoneBill.addItem("call");
         phoneBill.addItem("call");
         phoneBill.addItem("call");
         phoneBill.addItem("call");
@@ -165,9 +162,9 @@ describe("The factory function for both the bill with settings", function(){
         assert.equal(phoneBill.getCriticalLevel(),15.00);
         assert.equal(phoneBill.getCallCostTotal(),15.00);
         assert.equal(phoneBill.getCallCount(),6);
-        assert.equal(phoneBill.getSMSCostTotal(),1.40);
-        assert.equal(phoneBill.getSMSCount(),4)
-        assert.equal(phoneBill.getTotalCost(),16.40);
+        assert.equal(phoneBill.getSMSCostTotal(),0.00);
+        assert.equal(phoneBill.getSMSCount(),0)
+        assert.equal(phoneBill.getTotalCost(),15.00);
     });
 
     it("should be able to return class 'warning' when total cost exceeds warning level but does not exceed critical level.", function() {
@@ -198,8 +195,65 @@ describe("The factory function for both the bill with settings", function(){
         assert.equal(phoneBill.getTotalCost(),13.90);
     });
 
-    
+    it("should be able to return class 'warning' when total cost exceeds warning level but does not exceed critical level.", function() {
+        let phoneBill = billWithSettings();
+        phoneBill.setCallCost(2.50);
+        phoneBill.setSMSCost(0.35);
+        phoneBill.setWarningLevel(12.45);
+        phoneBill.setCriticalLevel(15.00);
+        phoneBill.addItem("sms");
+        phoneBill.addItem("call");
+        phoneBill.addItem("sms");
+        phoneBill.addItem("sms");
+        phoneBill.addItem("call");
+        phoneBill.addItem("call");
+        phoneBill.addItem("sms");
+        phoneBill.addItem("call");
+        phoneBill.addItem("call");
 
+        assert.equal(phoneBill.getClass(),"warning");
+        assert.equal(phoneBill.getCallCost(),2.50);
+        assert.equal(phoneBill.getSMSCost(),0.35);
+        assert.equal(phoneBill.getWarningLevel(),12.45);
+        assert.equal(phoneBill.getCriticalLevel(),15.00);
+        assert.equal(phoneBill.getCallCostTotal(),12.50);
+        assert.equal(phoneBill.getCallCount(),5);
+        assert.equal(phoneBill.getSMSCostTotal(),1.40);
+        assert.equal(phoneBill.getSMSCount(),4)
+        assert.equal(phoneBill.getTotalCost(),13.90);
+    });
+
+    it("should not add calls or sms's if the subsequent total will exceed the critical level.", function() {
+        let phoneBill = billWithSettings();
+        phoneBill.setCallCost(2.50);
+        phoneBill.setSMSCost(0.35);
+        phoneBill.setWarningLevel(12.45);
+        phoneBill.setCriticalLevel(15.00);
+        phoneBill.addItem("sms");
+        phoneBill.addItem("call");
+        phoneBill.addItem("sms");
+        phoneBill.addItem("sms");
+        phoneBill.addItem("call");
+        phoneBill.addItem("call");
+        phoneBill.addItem("sms");
+        phoneBill.addItem("call");
+        phoneBill.addItem("call");
+        phoneBill.addItem("call");
+        phoneBill.addItem("sms");
+
+        assert.equal(phoneBill.getClass(),"warning");
+        assert.equal(phoneBill.getCallCost(),2.50);
+        assert.equal(phoneBill.getSMSCost(),0.35);
+        assert.equal(phoneBill.getWarningLevel(),12.45);
+        assert.equal(phoneBill.getCriticalLevel(),15.00);
+        assert.equal(phoneBill.getCallCostTotal(),12.50);
+        assert.equal(phoneBill.getCallCount(),5);
+        assert.equal(phoneBill.getSMSCostTotal(),1.75);
+        assert.equal(phoneBill.getSMSCount(),5)
+        assert.equal(phoneBill.getTotalCost(),14.25);
+    });
+
+    
 
 
 });

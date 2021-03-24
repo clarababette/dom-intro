@@ -10,13 +10,17 @@ function billWithSettings() {
     var smsCount = 0;
 
     function makeCall() {
-        callCostTotal += callCost;
-        callCount ++;
+        if ((callCostTotal + smsCostTotal + callCost) <= criticalLevel) {
+            callCostTotal += callCost;
+            callCount ++;
+        };
     }
 
     function sendSMS() {
-        smsCostTotal += smsCost;
-        smsCount ++;
+        if ((callCostTotal + smsCostTotal + smsCost) <= criticalLevel) {
+            smsCostTotal += smsCost;
+            smsCount ++;
+        };
     }
 
     function addItem(item) {
@@ -28,8 +32,9 @@ function billWithSettings() {
         }
     }
 
+    
     function getClass() {
-        if ((callCostTotal + smsCostTotal) > criticalLevel) {
+        if ((callCostTotal + smsCostTotal) >= criticalLevel) {
             return "danger";
         } else if ((callCostTotal + smsCostTotal) > warningLevel) {
             return "warning";
