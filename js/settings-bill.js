@@ -8,13 +8,14 @@ function billWithSettings() {
     var callCount = 0;
     var smsCostTotal = 0;
     var smsCount = 0;
+    var isWidget = false;
 
     function makeCall() {
         if ((callCostTotal + smsCostTotal + callCost) <= criticalLevel) {
             callCostTotal += callCost;
             callCount ++;
-        } else {
-            //alert("Cannot add. Critical level reached.");
+        } else if (isWidget == true) {
+            alert("Cannot add. Critical level reached.");
         }
     }
 
@@ -22,8 +23,8 @@ function billWithSettings() {
         if ((callCostTotal + smsCostTotal + smsCost) <= criticalLevel) {
             smsCostTotal += smsCost;
             smsCount ++;
-        } else {
-            //alert("Cannot add. Critical level reached.");
+        } else if (isWidget == true) {
+            alert("Cannot add. Critical level reached.");
         }
     }
 
@@ -57,7 +58,9 @@ function billWithSettings() {
         let newCost = cost;
         if(cost !== "") {
             callCost = parseFloat(cost);
-            //changeCheck(oldCost,newCost);
+            if(isWidget == true) {
+                changeCheck(oldCost,newCost);
+            }
         }
         
     }
@@ -71,8 +74,9 @@ function billWithSettings() {
         let newCost = cost;
         if(cost !== "") {
             smsCost = parseFloat(cost);
-            //changeCheck(oldCost,newCost);
-
+            if(isWidget == true) {
+                changeCheck(oldCost,newCost);
+            }
         }
     }
 
@@ -135,6 +139,10 @@ function billWithSettings() {
         smsCount = 0;
     }
 
+    function widget() {
+        isWidget = true;
+    }
+
 
     return {
         makeCall,
@@ -156,6 +164,7 @@ function billWithSettings() {
         getSMSCount,
         reCalculateTotal,
         changeCheck,
-        resetTotals
+        resetTotals,
+        widget
     }
 }

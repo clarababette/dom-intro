@@ -13,6 +13,7 @@ var warningLevelInput = document.querySelector(".warningLevelSetting");
 var criticalLevelInput = document.querySelector(".criticalLevelSetting");
 
 var settingsBill = billWithSettings();
+settingsBill.widget();
 
 function displaySettingsValues() {
     callTotalSettingsElem.innerHTML = settingsBill.getCallCostTotal();
@@ -23,6 +24,7 @@ function displaySettingsValues() {
 }
 
 updateSettingsBtn.addEventListener("click", function() {
+    
     settingsBill.setCallCost(callCostInput.value);
     callCostInput.placeholder = "currently set at " + settingsBill.getCallCost();
     callCostInput.value = "";
