@@ -1,10 +1,4 @@
 const thisTextBill = {
-  widgName: "Text input bill",
-  instructions: [
-    "<i>Enter call or sms in the textbox. Update the appropriate total and the global total when the ADD button in pressed.</i>",
-    "<i>Calls costs R2.75 and a SMS R0.75</i>",
-    "<i>If the total cost exceed R30.00 show the total cost in orange, if over R50 show it in red.</i>",
-  ],
   text: true,
   addBtnID: "addBtnText",
   resetBtnID: "resetBtnText",
@@ -41,8 +35,12 @@ document.addEventListener("DOMContentLoaded", function () {
     callsTextTotalElem.innerHTML = theTextBill.getCallTotal();
     smsTextTotalElem.innerHTML = theTextBill.getSMSTotal();
     totalTextCostElem.innerHTML = theTextBill.getTotalCost();
-    document.querySelector("#callCountText").innerHTML = theTextBill.getCallCount();
-    document.querySelector("#smsCountText").innerHTML = theTextBill.getSMSCount();
+    document.querySelector(
+      "#callCountText"
+    ).innerHTML = theTextBill.getCallCount();
+    document.querySelector(
+      "#smsCountText"
+    ).innerHTML = theTextBill.getSMSCount();
   }
 
   addToBillBtn.addEventListener("click", function () {
@@ -52,11 +50,10 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   textBillResetBtn.addEventListener("click", function () {
-      billTypeText.value = "";
-      theTextBill = billTextRadio();
-      totalTextCostElem.classList.remove("danger");
-      totalTextCostElem.classList.remove("warning");
-      displayValues();
+    billTypeText.value = "";
+    theTextBill = billTextRadio();
+    totalTextCostElem.classList.remove("danger");
+    totalTextCostElem.classList.remove("warning");
+    displayValues();
   });
 });
-

@@ -104,10 +104,57 @@
             </div>
           </div>
         </div>
-        <div class="textBill six columns box"></div>
+        <div class="six columns box">
+          <h3>Text input bill</h3>
+
+          <div class="">
+            <i
+              >Enter call or sms in the textbox. Update the appropriate total
+              and the global total when the ADD button in pressed.</i
+            >
+          </div>
+          <div class="">
+            <i>Calls costs R2.75 and a SMS R0.75</i>
+          </div>
+
+          <div class="">
+            <i
+              >If the total cost exceed R30.00 show the total cost in orange, if
+              over R50 show it in red.</i
+            >
+          </div>
+
+          <hr />
+
+          <div class="textBill row"></div>
+        </div>
       </div>
       <div class="row">
-        <div class="radioBill six columns box"></div>
+        <div class="six columns box">
+          <h3>Radio button bill</h3>
+
+          <div class="">
+            Select the call or sms radio button. Update the appropriate total
+            and the global total when the ADD button in pressed.
+          </div>
+          <br />
+          <div class="">
+            <i>Calls costs R2.75 and a SMS R0.75</i>
+          </div>
+
+          <div class="">
+            <i
+              >If the total cost exceed R30.00 show the total cost in orange, if
+              over R50 show it in red.</i
+            >
+          </div>
+          <br />
+          <div class="">What is the benefit of using radio buttons?</div>
+
+          <hr />
+
+          <div class="radioBill row"></div>
+        </div>
         <div class="six columns box">
           <h3>Bill with settings</h3>
           <div class="">
@@ -238,62 +285,50 @@
     <script src="js/text-bill-dom.js" charset="utf-8"></script>
     <script src="js/settings-bill-dom.js" charset="utf-8"></script>
     <script type="text/x-template" class="billsTemplate">
-      <h3>{{widgName}}</h3>
+      <div class="six columns">
 
-      {{#each instructions}}
-      <div class="">
-        {{{this}}}
+        {{#if text}}
+        <label for="">Bill type</label>
+        <input type="text" name="" value="" placeholder="enter 'call' or 'sms' " class="billTypeText">
+        {{/if}}
+
+        {{#if radio}}
+        <h5>Bill type</h5>
+        <label class="">
+          <input type="radio" name="billItemType" class="billItemTypeRadio" value="call">
+          <span class="label-body">Call</span>
+        </label>
+        <label class="">
+          <input type="radio" name="billItemType" class="billItemTypeRadio" value="sms">
+          <span class="label-body" >SMS</span>
+        </label>
+        {{/if}}
+
+        <button class="button-primary" id={{addBtnID}} type="button" name="button" >Add</button>
+        <button class="button-primary" id={{resetBtnID}} type="button" name="button">Reset</button>
+        <div>
+          <span>Call count: <span id={{callCountID}}>{{callCount}}</span> </span>
+        </div>
+        <div>
+          <span>SMS count: <span id={{smsCountID}}>{{smsCount}}</span> </span>
+        </div>
       </div>
-      {{/each}}
-
-      <hr>
-
-      <div class="row">
-        <div class="six columns">
-
-          {{#if text}}
-          <label for="">Bill type</label>
-          <input type="text" name="" value="" placeholder="enter 'call' or 'sms' " class="billTypeText">
-          {{/if}}
-
-          {{#if radio}}
-          <h5>Bill type</h5>
-          <label class="">
-            <input type="radio" name="billItemType" class="billItemTypeRadio" value="call">
-            <span class="label-body">Call</span>
-          </label>
-          <label class="">
-            <input type="radio" name="billItemType" class="billItemTypeRadio" value="sms">
-            <span class="label-body" >SMS</span>
-          </label>
-          {{/if}}
-
-          <button class="button-primary" id={{addBtnID}} type="button" name="button" >Add</button>
-          <button class="button-primary" id={{resetBtnID}} type="button" name="button">Reset</button>
-          <div>
-            <span>Call count: <span id={{callCountID}}>{{callCount}}</span> </span>
-          </div>
-          <div>
-            <span>SMS count: <span id={{smsCountID}}>{{smsCount}}</span> </span>
-          </div>
-        </div>
-        <div class="six columns">
-          <h5>Totals</h5>
-          <table>
-            <tr>
-              <td>Call total</td>
-              <td>R<span id={{callTotalID}}>{{callTotal}}</span></td>
-            </tr>
-            <tr>
-              <td>SMS total</td>
-              <td>R<span id={{smsTotalID}}>{{smsTotal}}</span></td>
-            </tr>
-            <tr>
-              <td>Total</td>
-              <td>R<span id={{sumTotalID}}>{{sumTotal}}</span></td>
-            </tr>
-          </table>
-        </div>
+      <div class="six columns">
+        <h5>Totals</h5>
+        <table>
+          <tr>
+            <td>Call total</td>
+            <td>R<span id={{callTotalID}}>{{callTotal}}</span></td>
+          </tr>
+          <tr>
+            <td>SMS total</td>
+            <td>R<span id={{smsTotalID}}>{{smsTotal}}</span></td>
+          </tr>
+          <tr>
+            <td>Total</td>
+            <td>R<span id={{sumTotalID}}>{{sumTotal}}</span></td>
+          </tr>
+        </table>
       </div>
     </script>
   </body>

@@ -1,11 +1,4 @@
 const thisRadioBill = {
-  widgName: "Radio button bill",
-  instructions: [
-    "Select the call or sms radio button. Update the appropriate total and the global total when the ADD button in pressed.",
-    "<i>Calls costs R2.75 and a SMS R0.75</i>",
-    "<i>If the total cost exceed R30.00 show the total cost in orange, if over R50 show it in red.</i>",
-    "What is the benefit of using radio buttons?",
-  ],
   radio: true,
   addBtnID: "addBtnRadio",
   resetBtnID: "resetBtnRadio",
